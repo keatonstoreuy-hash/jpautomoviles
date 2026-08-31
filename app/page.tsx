@@ -13,7 +13,7 @@ import { site, waLink } from '@/lib/site';
 import { IconArrow, IconCheck, IconClock, IconPhone, IconPin } from '@/components/icons';
 
 const reasons = [
-  { t: 'Usados revisados', d: 'Cada unidad pasa por control mecánico antes de la entrega.' },
+  { t: 'Usados y 0 km', d: 'Vendemos autos, camionetas y motos, usados revisados y unidades 0 km.' },
   { t: 'Financiación propia', d: 'Planes en cuotas que se adaptan a tu presupuesto y aprobación ágil.' },
   { t: 'Recibimos tu usado', d: 'Tomamos tu vehículo en parte de pago con una tasación justa.' },
   { t: 'Nos encargamos de todo', d: 'Trámites, transferencia y papeles: te lo dejamos listo.' },
@@ -41,16 +41,16 @@ export default async function HomePage() {
             <span className="inline-flex items-center gap-2 text-xs font-700 uppercase tracking-[0.2em] text-white/70">
               <span className="h-px w-7 bg-gold" /> Automotora en {site.city}
             </span>
-            <h1 className="mt-4 font-display text-3xl font-800 uppercase leading-[1.05] sm:text-4xl lg:text-5xl">
+            <h1 className="mt-3 font-display text-2xl font-800 uppercase leading-[1.1] sm:text-3xl lg:text-4xl">
               Encontrá tu próximo vehículo en JP Automóviles
             </h1>
-            <p className="mt-4 max-w-lg text-base leading-relaxed text-white/75">
-              Autos, camionetas y motos con garantía y financiación. Te asesoramos en todo el proceso,
-              con la confianza de siempre.
+            <p className="mt-4 max-w-lg text-sm leading-relaxed text-white/75 sm:text-base">
+              Autos, camionetas y motos, <strong className="font-700 text-white">usados y 0 km</strong>, con
+              garantía y financiación. Te asesoramos en todo el proceso.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <Link href="/catalogo" className="btn-gold">Ver stock <IconArrow className="h-4 w-4" /></Link>
-              <Link href="/permuta" className="btn-outline-light">Cotizá tu usado</Link>
+              <Link href="/financiacion" className="btn-outline-light">Ver financiación</Link>
             </div>
           </div>
         </div>

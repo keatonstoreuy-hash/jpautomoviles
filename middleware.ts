@@ -1,5 +1,7 @@
 import { NextResponse, type NextRequest } from 'next/server';
-import { ADMIN_COOKIE } from '@/lib/auth-constants';
+
+// Inline (sin imports) para máxima compatibilidad con el runtime Edge.
+const ADMIN_COOKIE = 'jp_admin';
 
 // Gate liviano: si no hay cookie de sesión, al login. La verificación real
 // del token (HMAC) ocurre en el layout del panel y en las rutas de escritura.
