@@ -39,12 +39,8 @@ export function Preloader() {
       }`}
       aria-hidden="true"
     >
-      <div className="relative animate-logo-in">
+      <div className="animate-logo-in">
         <LogoStacked tone="light" />
-        {/* barrido metálico */}
-        <span className="pointer-events-none absolute inset-0 overflow-hidden">
-          <span className="absolute inset-y-0 -left-1/3 w-1/3 animate-sweep bg-gradient-to-r from-transparent via-white/25 to-transparent" />
-        </span>
       </div>
     </div>
   );

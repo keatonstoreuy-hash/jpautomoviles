@@ -56,9 +56,13 @@ export function Footer() {
       </div>
 
       <div className="border-t border-paper/10">
-        <div className="wrap flex flex-col items-center justify-between gap-2 py-5 text-xs text-paper/45 sm:flex-row">
+        <div className="wrap flex flex-col items-center justify-between gap-3 py-5 text-xs text-paper/45 sm:flex-row">
           <p>© {new Date().getFullYear()} {site.name}. Todos los derechos reservados.</p>
-          <p>Paysandú, Uruguay · Usados garantidos · Permuta y financiación</p>
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
+            <Link href="/privacidad" className="hover:text-paper">Políticas de Privacidad</Link>
+            <Link href="/terminos" className="hover:text-paper">Términos y Condiciones</Link>
+            <span className="hidden sm:inline">Paysandú, Uruguay</span>
+          </div>
         </div>
       </div>
     </footer>

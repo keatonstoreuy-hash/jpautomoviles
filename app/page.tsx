@@ -2,13 +2,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
-import { HeroSearch } from '@/components/HeroSearch';
 import { InventoryTabs } from '@/components/InventoryTabs';
 import { FinanceCalculator } from '@/components/FinanceCalculator';
 import { ContactForm } from '@/components/ContactForm';
 import { MapEmbed } from '@/components/MapEmbed';
 import { Reveal } from '@/components/Reveal';
-import { getBrands, getVehicles } from '@/lib/vehicles';
+import { getVehicles } from '@/lib/vehicles';
 import { site, waLink } from '@/lib/site';
 import { IconArrow, IconCheck, IconClock, IconPhone, IconPin } from '@/components/icons';
 
@@ -26,7 +25,7 @@ const testimonials = [
 ];
 
 export default async function HomePage() {
-  const [brands, all] = await Promise.all([getBrands(), getVehicles()]);
+  const all = await getVehicles();
   const stock = all.filter((v) => v.status !== 'vendido');
 
   return (
@@ -36,62 +35,56 @@ export default async function HomePage() {
       {/* HERO */}
       <section className="relative isolate overflow-hidden bg-ink text-white">
         <div className="absolute inset-0 -z-10">
-          <video
-            className="h-full w-full object-cover opacity-40"
-            autoPlay muted loop playsInline
-            poster="/hero-poster.jpg"
-          >
-            <source src="/hero.mp4" type="video/mp4" />
-          </video>
-          <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/80 to-ink/50" />
+          <Image
+            src="https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1900&q=70"
+            alt="Vehículos en JP Automóviles" fill priority className="object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/85 to-ink/35" />
         </div>
 
-        <div className="wrap flex min-h-[460px] flex-col justify-center py-14 sm:min-h-[520px]">
+        <div className="wrap flex min-h-[440px] flex-col justify-center py-16 sm:min-h-[500px]">
           <div className="max-w-2xl">
             <span className="inline-flex items-center gap-2 text-xs font-700 uppercase tracking-[0.2em] text-white/70">
               <span className="h-px w-7 bg-gold" /> Automotora en {site.city}
             </span>
             <h1 className="mt-4 font-display text-3xl font-800 uppercase leading-[1.05] sm:text-4xl lg:text-5xl">
-              Tu próximo auto está en JP Automóviles
+              Encontrá tu próximo vehículo en JP Automóviles
             </h1>
             <p className="mt-4 max-w-lg text-base leading-relaxed text-white/75">
-              Usados y 0 km con garantía. Recibimos tu vehículo en parte de pago y te financiamos la
-              diferencia, con atención personalizada de principio a fin.
+              Autos, camionetas y motos con garantía y financiación. Te asesoramos en todo el proceso,
+              con la confianza de siempre.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <Link href="/catalogo" className="btn-gold">Ver stock <IconArrow className="h-4 w-4" /></Link>
               <Link href="/permuta" className="btn-outline-light">Cotizá tu usado</Link>
             </div>
           </div>
-
-          <div className="mt-9 max-w-4xl">
-            <HeroSearch brands={brands} />
-          </div>
         </div>
       </section>
 
-      {/* VENDÉ TU AUTO EN 3 PASOS */}
+      {/* COMPRÁ TU VEHÍCULO */}
       <section className="bg-paper-muted">
-        <div className="wrap grid items-center gap-8 py-12 lg:grid-cols-[1fr_1fr]">
-          <Reveal className="relative aspect-[16/10] overflow-hidden rounded-lg">
-            <Image
-              src="/video-avenger-poster.jpg"
-              alt="Vendé tu auto en JP Automóviles" fill className="object-cover" />
-          </Reveal>
-          <Reveal delay={80}>
-            <span className="eyebrow">Permuta y venta</span>
+        <div className="wrap grid items-center gap-6 py-12 lg:grid-cols-[1.1fr_1fr]">
+          <Reveal className="order-2 lg:order-1">
+            <span className="eyebrow">Comprá con confianza</span>
             <h2 className="mt-2 font-display text-2xl font-800 uppercase sm:text-3xl">
-              Vendé o permutá tu auto en 3 pasos
+              Encontrá tu próximo vehículo
             </h2>
-            <ol className="mt-5 space-y-3">
-              {['Nos mandás los datos y fotos de tu vehículo.', 'Te pasamos una tasación sin compromiso.', 'Coordinamos y cerramos la operación con todo en regla.'].map((s, i) => (
-                <li key={s} className="flex items-start gap-3 text-steel-800">
-                  <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-ink text-sm font-800 text-gold">{i + 1}</span>
-                  {s}
-                </li>
-              ))}
-            </ol>
-            <Link href="/permuta" className="btn-primary mt-6">Cotizar mi auto</Link>
+            <p className="mt-3 max-w-md text-steel-600">
+              Autos, camionetas y motos seleccionados. Elegí el tuyo, recibimos tu usado en parte de
+              pago y te financiamos la diferencia en cuotas.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link href="/catalogo" className="btn-primary">Ver catálogo <IconArrow className="h-4 w-4" /></Link>
+              <Link href="/financiacion" className="btn-outline">Simular cuota</Link>
+            </div>
+          </Reveal>
+          <Reveal delay={80} className="order-1 lg:order-2">
+            <Image
+              src="/vehiculo-cutout.png"
+              alt="Vehículo disponible en JP Automóviles"
+              width={640} height={420}
+              className="h-auto w-full drop-shadow-2xl"
+            />
           </Reveal>
         </div>
       </section>
@@ -147,51 +140,24 @@ export default async function HomePage() {
 
       {/* RAZONES */}
       <section id="nosotros" className="bg-ink text-white">
-        <div className="wrap grid gap-10 py-16 sm:py-20 lg:grid-cols-[1fr_1fr] lg:items-center">
-          <Reveal>
+        <div className="wrap py-16 sm:py-20">
+          <Reveal className="max-w-2xl">
             <span className="inline-flex items-center gap-2 text-xs font-700 uppercase tracking-[0.2em] text-gold">
               <span className="h-px w-7 bg-gold" /> Por qué elegirnos
             </span>
             <h2 className="mt-2 font-display text-2xl font-800 uppercase sm:text-3xl">
               4 razones para elegir JP Automóviles
             </h2>
-            <div className="mt-7 grid gap-6 sm:grid-cols-2">
-              {reasons.map((r, i) => (
-                <div key={r.t}>
-                  <div className="flex items-center gap-3">
-                    <span className="font-display text-2xl font-900 text-gold">{i + 1}</span>
-                    <h3 className="font-display text-base font-800 uppercase">{r.t}</h3>
-                  </div>
-                  <p className="mt-2 text-sm leading-relaxed text-white/65">{r.d}</p>
-                </div>
-              ))}
-            </div>
           </Reveal>
-          <Reveal delay={80} className="relative aspect-[4/3] overflow-hidden rounded-lg">
-            <Image
-              src="/hero-poster.jpg"
-              alt="Vehículos de JP Automóviles" fill className="object-cover" />
-          </Reveal>
-        </div>
-      </section>
-
-      {/* CONOCÉ NUESTRO LOCAL */}
-      <section className="bg-ink text-white">
-        <div className="wrap grid items-center gap-8 py-14 sm:py-16 lg:grid-cols-[1fr_1.2fr]">
-          <Reveal>
-            <span className="inline-flex items-center gap-2 text-xs font-700 uppercase tracking-[0.2em] text-gold">
-              <span className="h-px w-7 bg-gold" /> Nuestro local
-            </span>
-            <h2 className="mt-2 font-display text-2xl font-800 uppercase sm:text-3xl">Conocé nuestro local</h2>
-            <p className="mt-3 max-w-md text-white/75">
-              Te esperamos en {site.address}, {site.city}. Vení a ver los vehículos en persona y
-              asesorate sin compromiso.
-            </p>
-            <Link href="/#contacto" className="btn-gold mt-6">Cómo llegar</Link>
-          </Reveal>
-          <Reveal delay={80} className="min-h-[280px] overflow-hidden rounded-lg border border-white/10">
-            <MapEmbed />
-          </Reveal>
+          <div className="mt-9 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            {reasons.map((r, i) => (
+              <Reveal key={r.t} delay={i * 70} className="border-t-2 border-gold pt-4">
+                <span className="font-display text-3xl font-900 text-gold">{String(i + 1).padStart(2, '0')}</span>
+                <h3 className="mt-2 font-display text-base font-800 uppercase">{r.t}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-white/65">{r.d}</p>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 
