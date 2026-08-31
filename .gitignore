@@ -1,0 +1,25 @@
+# dependencias
+/node_modules
+
+# next.js
+/.next/
+/out/
+next-env.d.ts
+
+# produccion
+/build
+
+# entorno
+.env
+.env*.local
+
+# vercel
+.vercel
+
+# sistema
+.DS_Store
+*.pem
+npm-debug.log*
+
+# respaldo del sitio viejo (no se despliega)
+/_old_static
