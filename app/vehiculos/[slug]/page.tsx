@@ -129,7 +129,7 @@ export default async function VehiclePage({ params }: { params: { slug: string }
                 <ul className="mt-4 grid gap-2 sm:grid-cols-2">
                   {v.features.map((f) => (
                     <li key={f} className="flex items-center gap-2.5 text-sm text-steel-800">
-                      <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-red/15 text-red-deep">
+                      <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-gold/15 text-gold-deep">
                         <IconCheck className="h-4 w-4" />
                       </span>
                       {f}
@@ -144,7 +144,7 @@ export default async function VehiclePage({ params }: { params: { slug: string }
           <aside className="lg:sticky lg:top-[124px] lg:h-fit">
             <div className="card p-6">
               <div className="flex items-center justify-between">
-                <p className="text-[11px] font-800 uppercase tracking-[0.14em] text-red">{v.brand}</p>
+                <p className="text-[11px] font-800 uppercase tracking-[0.14em] text-gold-deep">{v.brand}</p>
                 <StatusBadge status={v.status} />
               </div>
               <h1 className="mt-1 font-display text-2xl font-800 leading-tight">{fullName}</h1>
@@ -166,7 +166,7 @@ export default async function VehiclePage({ params }: { params: { slug: string }
               </div>
 
               <p className="mt-4 flex items-center gap-2 text-sm text-steel-600">
-                <IconPin className="h-4 w-4 text-red-deep" /> {site.address}, {site.city}
+                <IconPin className="h-4 w-4 text-gold-deep" /> {site.address}, {site.city}
               </p>
             </div>
 

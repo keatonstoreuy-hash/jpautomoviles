@@ -56,8 +56,9 @@ export function VehicleCard({ v, priority = false }: { v: Vehicle; priority?: bo
               {sold ? 'Vendido' : currency.format(v.price)}
             </p>
           </div>
-          <span className="text-xs font-800 uppercase tracking-wide text-red">
-            Ver detalles →
+          <span className="inline-flex items-center gap-1 text-xs font-800 uppercase tracking-wide text-ink transition-all group-hover:gap-2">
+            Ver detalles
+            <span className="grid h-6 w-6 place-items-center rounded-full bg-gold text-ink transition-transform group-hover:translate-x-0.5">→</span>
           </span>
         </div>
       </div>

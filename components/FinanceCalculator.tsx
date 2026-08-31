@@ -40,7 +40,7 @@ export function FinanceCalculator({
     <div className={compact ? '' : 'card p-6 sm:p-8'}>
       {!compact && (
         <div className="mb-6 flex items-center gap-3">
-          <span className="grid h-11 w-11 place-items-center rounded-lg bg-ink text-red">
+          <span className="grid h-11 w-11 place-items-center rounded-lg bg-ink text-gold">
             <IconCalc className="h-6 w-6" />
           </span>
           <div>
@@ -59,7 +59,7 @@ export function FinanceCalculator({
           <input
             type="range" min={3000} max={80000} step={500}
             value={price} onChange={(e) => setPrice(+e.target.value)}
-            className="mt-2 w-full accent-red"
+            className="mt-2 w-full accent-gold"
           />
         </div>
 
@@ -71,7 +71,7 @@ export function FinanceCalculator({
           <input
             type="range" min={0} max={80} step={5}
             value={downPct} onChange={(e) => setDownPct(+e.target.value)}
-            className="mt-2 w-full accent-red"
+            className="mt-2 w-full accent-gold"
           />
         </div>
 
@@ -99,7 +99,7 @@ export function FinanceCalculator({
         <div className="flex items-end justify-between">
           <div>
             <p className="text-xs font-600 uppercase tracking-wide text-paper/60">Cuota mensual estimada</p>
-            <p className="font-display text-3xl font-800 text-red-soft">{money(result.monthly)}</p>
+            <p className="font-display text-3xl font-800 text-gold-soft">{money(result.monthly)}</p>
           </div>
           <div className="text-right text-xs text-paper/60">
             <p>Monto a financiar</p>

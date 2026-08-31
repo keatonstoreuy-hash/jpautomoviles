@@ -43,7 +43,7 @@ export default function FinanciacionPage() {
               { t: 'Aprobación y entrega', d: 'Coordinamos la documentación y te llevás el auto.' },
             ].map((s, i) => (
               <li key={s.t} className="flex gap-4">
-                <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-ink font-display font-700 text-red-soft">
+                <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-ink font-display font-700 text-gold-soft">
                   {i + 1}
                 </span>
                 <div>
@@ -61,7 +61,7 @@ export default function FinanciacionPage() {
               { icon: IconSwap, t: 'Aceptamos permuta' },
             ].map((b) => (
               <div key={b.t} className="card flex items-center gap-3 p-4">
-                <span className="grid h-9 w-9 place-items-center rounded-lg bg-red/15 text-red-deep">
+                <span className="grid h-9 w-9 place-items-center rounded-lg bg-gold/15 text-gold-deep">
                   <b.icon className="h-5 w-5" />
                 </span>
                 <span className="text-sm font-600">{b.t}</span>

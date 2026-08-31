@@ -3,13 +3,13 @@ import type { VehicleStatus } from '@/lib/types';
 
 const styles: Record<VehicleStatus, string> = {
   disponible: 'bg-white text-ink ring-1 ring-ink/10',
-  reservado: 'bg-red text-white',
+  reservado: 'bg-gold text-ink',
   vendido: 'bg-ink text-white',
 };
 
 const dot: Record<VehicleStatus, string> = {
-  disponible: 'bg-red',
-  reservado: 'bg-white',
+  disponible: 'bg-gold',
+  reservado: 'bg-ink',
   vendido: 'bg-white/70',
 };
 

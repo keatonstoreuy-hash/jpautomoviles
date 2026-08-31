@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { getAllVehiclesAdmin, inventoryStats } from '@/lib/vehicles';
-import { isSupabaseConfigured } from '@/lib/supabase/config';
+import { isSupabaseWritable } from '@/lib/supabase/config';
 import { VehicleTable } from '@/components/admin/VehicleTable';
 import { SetupNotice } from '@/components/admin/SetupNotice';
 
@@ -13,14 +13,14 @@ export default async function AdminDashboard() {
 
   return (
     <div className="space-y-6">
-      {!isSupabaseConfigured && <SetupNotice />}
+      {!isSupabaseWritable && <SetupNotice />}
 
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
           <h1 className="font-display text-2xl font-600">Catálogo</h1>
           <p className="text-sm text-steel-600">Gestioná los vehículos que se muestran en el sitio.</p>
         </div>
-        {isSupabaseConfigured && (
+        {isSupabaseWritable && (
           <Link href="/admin/nuevo" className="btn-primary">+ Nuevo vehículo</Link>
         )}
       </div>
@@ -39,7 +39,7 @@ export default async function AdminDashboard() {
         ))}
       </div>
 
-      <VehicleTable vehicles={vehicles} editable={isSupabaseConfigured} />
+      <VehicleTable vehicles={vehicles} editable={isSupabaseWritable} />
     </div>
   );
 }

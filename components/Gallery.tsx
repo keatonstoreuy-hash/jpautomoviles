@@ -51,7 +51,7 @@ export function Gallery({ images, alt }: { images: string[]; alt: string }) {
               onClick={() => setActive(i)}
               aria-label={`Ver foto ${i + 1}`}
               className={`relative h-16 w-24 shrink-0 overflow-hidden rounded-lg border-2 transition ${
-                i === active ? 'border-red' : 'border-transparent opacity-70 hover:opacity-100'
+                i === active ? 'border-gold' : 'border-transparent opacity-70 hover:opacity-100'
               }`}
             >
               <Image src={src} alt="" fill sizes="96px" className="object-cover" />

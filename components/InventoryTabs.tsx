@@ -44,7 +44,7 @@ function TabBtn({
     <button
       onClick={onClick}
       className={`rounded-md px-4 py-2 text-xs font-800 uppercase tracking-wide transition ${
-        active ? 'bg-red text-white' : 'bg-paper-muted text-steel-600 hover:text-ink'
+        active ? 'bg-gold text-ink' : 'bg-paper-muted text-steel-600 hover:text-ink'
       }`}
     >
       {children}

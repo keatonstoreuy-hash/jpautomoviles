@@ -14,17 +14,17 @@ export function Footer() {
             con atención personalizada y respaldo.
           </p>
           <div className="mt-5 flex gap-2.5">
-            <a href={site.social.instagram} target="_blank" rel="noopener" aria-label="Instagram" className="grid h-10 w-10 place-items-center rounded-full border border-paper/15 text-paper/80 transition hover:border-red hover:text-red">
+            <a href={site.social.instagram} target="_blank" rel="noopener" aria-label="Instagram" className="grid h-10 w-10 place-items-center rounded-full border border-paper/15 text-paper/80 transition hover:border-gold hover:text-gold">
               <IconInstagram className="h-5 w-5" />
             </a>
-            <a href={site.social.facebook} target="_blank" rel="noopener" aria-label="Facebook" className="grid h-10 w-10 place-items-center rounded-full border border-paper/15 text-paper/80 transition hover:border-red hover:text-red">
+            <a href={site.social.facebook} target="_blank" rel="noopener" aria-label="Facebook" className="grid h-10 w-10 place-items-center rounded-full border border-paper/15 text-paper/80 transition hover:border-gold hover:text-gold">
               <IconFacebook className="h-5 w-5" />
             </a>
           </div>
         </div>
 
         <div>
-          <h3 className="text-xs font-700 uppercase tracking-[0.18em] text-red-soft">Navegación</h3>
+          <h3 className="text-xs font-700 uppercase tracking-[0.18em] text-gold-soft">Navegación</h3>
           <ul className="mt-4 space-y-2.5 text-sm text-paper/70">
             <li><Link href="/catalogo" className="hover:text-paper">Catálogo de autos</Link></li>
             <li><Link href="/financiacion" className="hover:text-paper">Calculadora de cuotas</Link></li>
@@ -34,20 +34,20 @@ export function Footer() {
         </div>
 
         <div>
-          <h3 className="text-xs font-700 uppercase tracking-[0.18em] text-red-soft">Horarios</h3>
+          <h3 className="text-xs font-700 uppercase tracking-[0.18em] text-gold-soft">Horarios</h3>
           <ul className="mt-4 space-y-2.5 text-sm text-paper/70">
-            <li className="flex items-start gap-2"><IconClock className="mt-0.5 h-4 w-4 shrink-0 text-red" /> {site.hoursText}</li>
+            <li className="flex items-start gap-2"><IconClock className="mt-0.5 h-4 w-4 shrink-0 text-gold" /> {site.hoursText}</li>
             <li>Sábados: consultar</li>
           </ul>
         </div>
 
         <div>
-          <h3 className="text-xs font-700 uppercase tracking-[0.18em] text-red-soft">Contacto</h3>
+          <h3 className="text-xs font-700 uppercase tracking-[0.18em] text-gold-soft">Contacto</h3>
           <ul className="mt-4 space-y-3 text-sm text-paper/70">
-            <li className="flex items-start gap-2"><IconPin className="mt-0.5 h-4 w-4 shrink-0 text-red" /> {site.address}, {site.city}</li>
+            <li className="flex items-start gap-2"><IconPin className="mt-0.5 h-4 w-4 shrink-0 text-gold" /> {site.address}, {site.city}</li>
             <li>
               <a href={waLink()} target="_blank" rel="noopener" className="inline-flex items-center gap-2 hover:text-paper">
-                <IconWhatsApp className="h-4 w-4 text-red" /> {site.phone.mobile}
+                <IconWhatsApp className="h-4 w-4 text-gold" /> {site.phone.mobile}
               </a>
             </li>
             <li><a href={`tel:${site.phone.landlineIntl}`} className="hover:text-paper">Tel: {site.phone.landline}</a></li>

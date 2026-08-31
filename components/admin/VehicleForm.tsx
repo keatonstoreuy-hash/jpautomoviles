@@ -3,10 +3,7 @@
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { createClient } from '@/lib/supabase/client';
-import { VEHICLES_BUCKET } from '@/lib/supabase/config';
 import { bodyOptions, fuelOptions, statusOptions, transmissionOptions } from '@/lib/labels';
-import { vehicleSlug } from '@/lib/slug';
 import type { Vehicle } from '@/lib/types';
 
 type FormState = Omit<Vehicle, 'id' | 'createdAt'>;
@@ -20,7 +17,6 @@ const empty: FormState = {
 
 export function VehicleForm({ initial }: { initial?: Vehicle }) {
   const router = useRouter();
-  const supabase = createClient();
   const [f, setF] = useState<FormState>(initial ? { ...initial } : empty);
   const [featuresText, setFeaturesText] = useState((initial?.features ?? []).join('\n'));
   const [saving, setSaving] = useState(false);
@@ -34,26 +30,14 @@ export function VehicleForm({ initial }: { initial?: Vehicle }) {
     setUploading(true);
     setError('');
     try {
-      const urls: string[] = [];
-      for (const file of Array.from(files)) {
-        if (!file.type.startsWith('image/')) {
-          throw new Error(`"${file.name}" no es una imagen.`);
-        }
-        if (file.size > 8 * 1024 * 1024) {
-          throw new Error(`"${file.name}" supera los 8 MB. Reducí el tamaño e intentá de nuevo.`);
-        }
-        const ext = (file.name.split('.').pop() ?? 'jpg').toLowerCase().replace(/[^a-z0-9]/g, '') || 'jpg';
-        const path = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
-        const { error: upErr } = await supabase.storage.from(VEHICLES_BUCKET).upload(path, file, {
-          cacheControl: '3600', upsert: false,
-        });
-        if (upErr) throw upErr;
-        const { data } = supabase.storage.from(VEHICLES_BUCKET).getPublicUrl(path);
-        urls.push(data.publicUrl);
-      }
-      set('images', [...f.images, ...urls]);
+      const fd = new FormData();
+      Array.from(files).forEach((file) => fd.append('files', file));
+      const res = await fetch('/api/admin/upload', { method: 'POST', body: fd });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Error subiendo fotos');
+      set('images', [...f.images, ...(data.urls as string[])]);
     } catch (e: any) {
-      setError('Error subiendo fotos: ' + (e.message ?? e));
+      setError(e.message ?? 'Error subiendo fotos');
     } finally {
       setUploading(false);
     }
@@ -73,48 +57,32 @@ export function VehicleForm({ initial }: { initial?: Vehicle }) {
     setError('');
     if (!f.brand || !f.model) { setError('Marca y modelo son obligatorios.'); return; }
     setSaving(true);
-
-    const features = featuresText.split('\n').map((s) => s.trim()).filter(Boolean);
-    const baseSlug = vehicleSlug(f.brand, f.model, f.version, f.year);
-    const slug = f.slug && initial ? f.slug : `${baseSlug}-${Math.random().toString(36).slice(2, 6)}`;
-
-    const row = {
-      slug,
-      brand: f.brand.trim(),
-      model: f.model.trim(),
-      version: f.version?.trim() || null,
-      year: Number(f.year),
-      price: Number(f.price),
-      currency: f.currency,
-      km: Number(f.km),
-      transmission: f.transmission,
-      fuel: f.fuel,
-      body: f.body,
-      color: f.color?.trim() || null,
-      doors: f.doors ? Number(f.doors) : null,
-      engine: f.engine?.trim() || null,
-      status: f.status,
-      featured: f.featured,
-      description: f.description?.trim() || null,
-      features,
-      images: f.images,
+    const payload = {
+      ...f,
+      id: initial?.id,
+      features: featuresText.split('\n').map((s) => s.trim()).filter(Boolean),
     };
-
-    const q = initial
-      ? supabase.from('vehicles').update(row).eq('id', initial.id)
-      : supabase.from('vehicles').insert(row);
-    const { error: dbErr } = await q;
-    setSaving(false);
-    if (dbErr) { setError('No se pudo guardar: ' + dbErr.message); return; }
-    router.push('/admin');
-    router.refresh();
+    try {
+      const res = await fetch('/api/admin/vehicles', {
+        method: initial ? 'PUT' : 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'No se pudo guardar');
+      router.push('/admin');
+      router.refresh();
+    } catch (e: any) {
+      setError(e.message ?? 'No se pudo guardar');
+      setSaving(false);
+    }
   };
 
   return (
     <form onSubmit={submit} className="grid gap-6 lg:grid-cols-[1.4fr_1fr]">
       <div className="space-y-6">
         <section className="card p-6">
-          <h2 className="mb-4 font-display text-lg font-600">Datos principales</h2>
+          <h2 className="mb-4 font-display text-lg font-800 uppercase">Datos principales</h2>
           <div className="grid gap-4 sm:grid-cols-2">
             <Input label="Marca *" value={f.brand} onChange={(v) => set('brand', v)} placeholder="Jeep" />
             <Input label="Modelo *" value={f.model} onChange={(v) => set('model', v)} placeholder="Renegade" />
@@ -126,7 +94,7 @@ export function VehicleForm({ initial }: { initial?: Vehicle }) {
         </section>
 
         <section className="card p-6">
-          <h2 className="mb-4 font-display text-lg font-600">Especificaciones</h2>
+          <h2 className="mb-4 font-display text-lg font-800 uppercase">Especificaciones</h2>
           <div className="grid gap-4 sm:grid-cols-2">
             <Select label="Transmisión" value={f.transmission} onChange={(v) => set('transmission', v as any)} options={transmissionOptions} />
             <Select label="Combustible" value={f.fuel} onChange={(v) => set('fuel', v as any)} options={fuelOptions} />
@@ -138,7 +106,7 @@ export function VehicleForm({ initial }: { initial?: Vehicle }) {
         </section>
 
         <section className="card p-6">
-          <h2 className="mb-4 font-display text-lg font-600">Descripción y equipamiento</h2>
+          <h2 className="mb-4 font-display text-lg font-800 uppercase">Descripción y equipamiento</h2>
           <label className="label">Descripción</label>
           <textarea className="field min-h-[100px]" value={f.description ?? ''} onChange={(e) => set('description', e.target.value)}
             placeholder="Estado, detalles, service al día…" />
@@ -150,33 +118,33 @@ export function VehicleForm({ initial }: { initial?: Vehicle }) {
 
       <div className="space-y-6">
         <section className="card p-6">
-          <h2 className="mb-4 font-display text-lg font-600">Publicación</h2>
+          <h2 className="mb-4 font-display text-lg font-800 uppercase">Publicación</h2>
           <Select label="Estado" value={f.status} onChange={(v) => set('status', v as any)} options={statusOptions} />
           <label className="mt-4 flex items-center gap-2.5 text-sm font-600">
-            <input type="checkbox" checked={f.featured} onChange={(e) => set('featured', e.target.checked)} className="h-4 w-4 accent-red" />
+            <input type="checkbox" checked={f.featured} onChange={(e) => set('featured', e.target.checked)} className="h-4 w-4 accent-gold" />
             Destacar en la página de inicio
           </label>
         </section>
 
         <section className="card p-6">
-          <h2 className="mb-1 font-display text-lg font-600">Fotos</h2>
+          <h2 className="mb-1 font-display text-lg font-800 uppercase">Fotos</h2>
           <p className="mb-4 text-xs text-steel-500">La primera foto es la principal. Podés reordenar.</p>
 
-          <label className="flex cursor-pointer flex-col items-center justify-center gap-1 rounded-lg border-2 border-dashed border-ink/15 bg-steel-50 py-8 text-center text-sm text-steel-600 hover:border-red">
-            <span className="font-600">{uploading ? 'Subiendo…' : 'Subir fotos'}</span>
-            <span className="text-xs text-steel-400">JPG o PNG</span>
+          <label className="flex cursor-pointer flex-col items-center justify-center gap-1 rounded-lg border-2 border-dashed border-ink/15 bg-steel-50 py-8 text-center text-sm text-steel-600 hover:border-gold">
+            <span className="font-700">{uploading ? 'Subiendo…' : 'Subir fotos'}</span>
+            <span className="text-xs text-steel-400">JPG o PNG (hasta 8 MB)</span>
             <input type="file" accept="image/*" multiple className="hidden" onChange={(e) => onFiles(e.target.files)} disabled={uploading} />
           </label>
 
           {f.images.length > 0 && (
             <div className="mt-4 grid grid-cols-3 gap-2">
               {f.images.map((src, i) => (
-                <div key={src} className="group relative aspect-square overflow-hidden rounded-lg border border-ink/10">
+                <div key={src} className="group relative aspect-square overflow-hidden rounded-md border border-ink/10">
                   <Image src={src} alt="" fill sizes="120px" className="object-cover" />
-                  {i === 0 && <span className="absolute left-1 top-1 rounded bg-red px-1.5 py-0.5 text-[10px] font-700 text-ink">Principal</span>}
+                  {i === 0 && <span className="absolute left-1 top-1 rounded bg-gold px-1.5 py-0.5 text-[10px] font-800 text-ink">Principal</span>}
                   <div className="absolute inset-x-0 bottom-0 flex justify-between bg-ink/60 p-1 opacity-0 transition group-hover:opacity-100">
                     <button type="button" onClick={() => moveImage(i, -1)} className="px-1 text-xs text-white">←</button>
-                    <button type="button" onClick={() => removeImage(i)} className="px-1 text-xs text-red-300">✕</button>
+                    <button type="button" onClick={() => removeImage(i)} className="px-1 text-xs text-[#ff6b6b]">✕</button>
                     <button type="button" onClick={() => moveImage(i, 1)} className="px-1 text-xs text-white">→</button>
                   </div>
                 </div>
@@ -185,7 +153,7 @@ export function VehicleForm({ initial }: { initial?: Vehicle }) {
           )}
         </section>
 
-        {error && <p className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">{error}</p>}
+        {error && <p className="rounded-md bg-[#fdecec] px-4 py-3 text-sm text-[#b3161f]">{error}</p>}
 
         <div className="flex gap-3">
           <button type="submit" className="btn-primary flex-1" disabled={saving || uploading}>

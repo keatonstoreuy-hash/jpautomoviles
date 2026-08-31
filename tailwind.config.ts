@@ -26,17 +26,15 @@ const config: Config = {
           500: '#9aa0a8',
           700: '#5b6169',
         },
-        // "brass" se mantiene como clave pero ahora es el ROJO de marca (dealership).
-        brass: {
-          DEFAULT: '#d81f2a',
-          soft: '#e6404a',
-          deep: '#b3161f',
+        // Amarillo/dorado de marca JP (dealership). El texto sobre amarillo va en negro.
+        gold: {
+          DEFAULT: '#f5b301',
+          soft: '#ffca2c',
+          deep: '#c98a00',
         },
-        red: {
-          DEFAULT: '#d81f2a',
-          soft: '#e6404a',
-          deep: '#b3161f',
-        },
+        // Aliases por compatibilidad.
+        brass: { DEFAULT: '#f5b301', soft: '#ffca2c', deep: '#c98a00' },
+        red: { DEFAULT: '#f5b301', soft: '#ffca2c', deep: '#c98a00' },
         steel: {
           50: '#f5f6f7',
           100: '#e9ebee',

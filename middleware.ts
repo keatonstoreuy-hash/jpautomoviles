@@ -1,57 +1,21 @@
-import { createServerClient } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
-import { SUPABASE_ANON_KEY, SUPABASE_URL, isSupabaseConfigured } from '@/lib/supabase/config';
+import { ADMIN_COOKIE } from '@/lib/auth-constants';
 
-export async function middleware(request: NextRequest) {
+// Gate liviano: si no hay cookie de sesión, al login. La verificación real
+// del token (HMAC) ocurre en el layout del panel y en las rutas de escritura.
+export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set('x-pathname', pathname);
+  const pass = NextResponse.next({ request: { headers: requestHeaders } });
 
-  // Sin Supabase configurado no hay sesión que refrescar. Bloqueamos el panel salvo el login.
-  if (!isSupabaseConfigured) {
-    if (pathname.startsWith('/admin') && pathname !== '/admin/login') {
-      return NextResponse.redirect(new URL('/admin/login', request.url));
-    }
-    return NextResponse.next();
-  }
+  if (pathname === '/admin/login') return pass;
 
-  let response = NextResponse.next({ request });
-
-  const supabase = createServerClient(SUPABASE_URL!, SUPABASE_ANON_KEY!, {
-    cookies: {
-      getAll() {
-        return request.cookies.getAll();
-      },
-      setAll(cookiesToSet: { name: string; value: string; options?: Record<string, unknown> }[]) {
-        cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value));
-        response = NextResponse.next({ request });
-        cookiesToSet.forEach(({ name, value, options }) =>
-          response.cookies.set(name, value, options as any)
-        );
-      },
-    },
-  });
-
-  let user = null;
-  try {
-    const { data } = await supabase.auth.getUser();
-    user = data.user;
-  } catch {
-    // Si el servicio de auth falla, protegemos el panel enviando al login (fail closed).
-    if (pathname.startsWith('/admin') && pathname !== '/admin/login') {
-      return NextResponse.redirect(new URL('/admin/login', request.url));
-    }
-    return response;
-  }
-
-  // Protege el panel: sin sesión, al login.
-  if (pathname.startsWith('/admin') && pathname !== '/admin/login' && !user) {
+  const hasCookie = Boolean(request.cookies.get(ADMIN_COOKIE)?.value);
+  if (!hasCookie) {
     return NextResponse.redirect(new URL('/admin/login', request.url));
   }
-  // Con sesión, evitá volver al login.
-  if (pathname === '/admin/login' && user) {
-    return NextResponse.redirect(new URL('/admin', request.url));
-  }
-
-  return response;
+  return pass;
 }
 
 export const config = {

@@ -27,7 +27,7 @@ export const demoVehicles: Vehicle[] = [
     description:
       'Jeep Renegade Sport en excelente estado, único dueño, service oficial al día. Ideal ciudad y ruta.',
     features: ['Cámara de retroceso', 'Pantalla táctil', 'Control de estabilidad', 'Bluetooth', 'Llantas de aleación'],
-    images: [img('photo-1533473359331-0135ef1b58bf'), img('photo-1552519507-da3b142c6e3d')],
+    images: [img('photo-1533473359331-0135ef1b58bf')],
   },
   {
     id: 'demo-2',
@@ -50,7 +50,7 @@ export const demoVehicles: Vehicle[] = [
     description:
       'Pick up RAM 1500 Laramie full, cuero, 4x4, impecable. Recibimos tu usado en parte de pago.',
     features: ['4x4', 'Asientos de cuero', 'Climatizador bizona', 'Sensores de estacionamiento', 'Tapizado premium'],
-    images: [img('photo-1594502184342-2e12f877aa73'), img('photo-1605893477799-b99e3b8b93fe')],
+    images: [img('photo-1594502184342-2e12f877aa73')],
   },
   {
     id: 'demo-3',

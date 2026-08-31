@@ -8,10 +8,9 @@ import { IconMenu, IconWhatsApp, IconX } from './icons';
 import { waLink } from '@/lib/site';
 
 const links = [
-  { href: '/catalogo', label: 'Catálogo' },
-  { href: '/financiacion', label: 'Financiación' },
-  { href: '/permuta', label: 'Permuta' },
-  { href: '/#nosotros', label: 'Nosotros' },
+  { href: '/catalogo', label: 'Comprar' },
+  { href: '/financiacion', label: 'Financiar' },
+  { href: '/permuta', label: 'Vendé tu auto' },
   { href: '/#contacto', label: 'Contacto' },
 ];
 
@@ -34,7 +33,7 @@ export function Navbar() {
               <li key={l.href}>
                 <Link
                   href={l.href}
-                  className="rounded-md px-3.5 py-2 text-sm font-700 uppercase tracking-wide text-steel-800 transition-colors hover:text-red"
+                  className="rounded-md px-3.5 py-2 text-sm font-700 uppercase tracking-wide text-steel-800 transition-colors hover:text-gold-deep"
                 >
                   {l.label}
                 </Link>
@@ -47,13 +46,10 @@ export function Navbar() {
               href={waLink('Hola JP Automóviles, quería hacer una consulta.')}
               target="_blank"
               rel="noopener"
-              className="btn-wa !px-4 !py-2.5 text-xs"
+              className="btn-wa !px-5 !py-2.5 text-xs"
             >
               <IconWhatsApp className="h-4 w-4" /> WhatsApp
             </a>
-            <Link href="/financiacion" className="btn-primary !px-5 !py-2.5 text-xs">
-              Simular cuota
-            </Link>
           </div>
 
           <button

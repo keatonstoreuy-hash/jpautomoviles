@@ -35,7 +35,7 @@ export default function PermutaPage() {
               'Combinable con financiación',
             ].map((t) => (
               <li key={t} className="flex items-center gap-3 text-steel-800">
-                <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-red/15 text-red-deep">
+                <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-gold/15 text-gold-deep">
                   <IconCheck className="h-4 w-4" />
                 </span>
                 {t}

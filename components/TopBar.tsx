@@ -7,18 +7,18 @@ export function TopBar() {
       <div className="wrap flex h-9 items-center justify-between text-xs">
         <div className="flex items-center gap-5">
           <a href={`tel:${site.phone.landlineIntl}`} className="inline-flex items-center gap-1.5 hover:text-white">
-            <IconPhone className="h-3.5 w-3.5 text-red" /> {site.phone.landline}
+            <IconPhone className="h-3.5 w-3.5 text-gold" /> {site.phone.landline}
           </a>
           <span className="inline-flex items-center gap-1.5">
-            <IconPin className="h-3.5 w-3.5 text-red" /> {site.address}, {site.city}
+            <IconPin className="h-3.5 w-3.5 text-gold" /> {site.address}, {site.city}
           </span>
           <span className="inline-flex items-center gap-1.5">
-            <IconClock className="h-3.5 w-3.5 text-red" /> {site.hoursText}
+            <IconClock className="h-3.5 w-3.5 text-gold" /> {site.hoursText}
           </span>
         </div>
         <div className="flex items-center gap-3">
           <a href={waLink()} target="_blank" rel="noopener" className="inline-flex items-center gap-1.5 hover:text-white">
-            <IconWhatsApp className="h-3.5 w-3.5 text-red" /> {site.phone.mobile}
+            <IconWhatsApp className="h-3.5 w-3.5 text-gold" /> {site.phone.mobile}
           </a>
           <span className="h-3.5 w-px bg-white/15" />
           <a href={site.social.instagram} target="_blank" rel="noopener" aria-label="Instagram" className="hover:text-white">

@@ -1,7 +1,7 @@
 export function SetupNotice() {
   return (
-    <div className="card border-red/40 bg-red/5 p-6">
-      <h2 className="font-display text-lg font-600">⚙️ Falta conectar la base de datos</h2>
+    <div className="card border-gold/40 bg-gold/5 p-6">
+      <h2 className="font-display text-lg font-800 uppercase">Falta conectar la base de datos</h2>
       <p className="mt-2 text-sm text-steel-700">
         El sitio ya funciona con autos de ejemplo. Para que puedas cargar y editar tu propio catálogo
         desde acá (con login, fotos y precios en tiempo real), hay que conectar Supabase — es gratis y

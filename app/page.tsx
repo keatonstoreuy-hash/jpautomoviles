@@ -10,7 +10,7 @@ import { FinanceCalculator } from '@/components/FinanceCalculator';
 import { ContactForm } from '@/components/ContactForm';
 import { MapEmbed } from '@/components/MapEmbed';
 import { Reveal } from '@/components/Reveal';
-import { LogoMark } from '@/components/Logo';
+import { Logo } from '@/components/Logo';
 import { getBrands, getVehicles, inventoryStats } from '@/lib/vehicles';
 import { site, waLink } from '@/lib/site';
 import {
@@ -48,10 +48,10 @@ export default async function HomePage() {
         </div>
 
         <div className="wrap pb-16 pt-14 sm:pt-20">
-          <LogoMark chrome className="mb-6 h-12 w-auto" />
-          <span className="eyebrow rule-eyebrow text-red">Automotora en Paysandú, Uruguay</span>
+          <Logo tone="light" href={null} size={72} className="mb-4" />
+          <span className="eyebrow rule-eyebrow text-gold">Automotora en Paysandú, Uruguay</span>
           <h1 className="mt-4 max-w-3xl font-display text-5xl font-900 uppercase leading-[0.95] tracking-tight sm:text-6xl lg:text-7xl">
-            Tu próximo auto <br /><span className="text-red">está en Paysandú</span>
+            Tu próximo auto <br /><span className="text-gold">está en Paysandú</span>
           </h1>
           <p className="mt-5 max-w-xl text-base leading-relaxed text-white/70 sm:text-lg">
             Usados y 0 km multimarca, revisados y listos para entregar. Recibimos tu vehículo en parte
@@ -106,8 +106,8 @@ export default async function HomePage() {
         <div className="wrap grid gap-6 py-14 sm:grid-cols-2 lg:grid-cols-4">
           {trust.map((t, i) => (
             <Reveal key={t.title} delay={i * 70}>
-              <div className="flex h-full flex-col items-start gap-3 border-l-2 border-red pl-5">
-                <span className="grid h-11 w-11 place-items-center rounded-md bg-ink text-red">
+              <div className="flex h-full flex-col items-start gap-3 border-l-2 border-gold pl-5">
+                <span className="grid h-11 w-11 place-items-center rounded-md bg-ink text-gold">
                   <t.icon className="h-6 w-6" />
                 </span>
                 <h3 className="font-display text-base font-800 uppercase">{t.title}</h3>
@@ -126,7 +126,7 @@ export default async function HomePage() {
               src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=60"
               alt="" fill className="object-cover opacity-25 transition group-hover:opacity-30" />
             <div className="relative p-8 sm:p-10">
-              <span className="eyebrow text-red">Financiación</span>
+              <span className="eyebrow text-gold">Financiación</span>
               <h3 className="mt-2 font-display text-2xl font-800 uppercase sm:text-3xl">Llevate tu auto en cuotas</h3>
               <p className="mt-3 max-w-sm text-white/70">
                 Planes de 12 a 60 meses con entrega flexible. Simulá tu cuota online y aprobamos rápido.
@@ -140,13 +140,52 @@ export default async function HomePage() {
               src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=60"
               alt="" fill className="object-cover opacity-25 transition group-hover:opacity-30" />
             <div className="relative p-8 sm:p-10">
-              <span className="eyebrow text-red">Permuta</span>
+              <span className="eyebrow text-gold">Permuta</span>
               <h3 className="mt-2 font-display text-2xl font-800 uppercase sm:text-3xl">Entregá tu usado</h3>
               <p className="mt-3 max-w-sm text-white/70">
                 Tasamos tu vehículo de forma justa y lo tomamos como parte de pago de tu próxima compra.
               </p>
               <Link href="/permuta" className="btn-outline-light mt-6">Tasar mi vehículo <IconSwap className="h-4 w-4" /></Link>
             </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* NOVEDADES · video real de JP */}
+      <section className="bg-ink text-white">
+        <div className="wrap grid items-center gap-10 py-16 sm:py-20 lg:grid-cols-[1fr_1.1fr]">
+          <Reveal>
+            <span className="eyebrow text-gold">Novedades · Preventa</span>
+            <h2 className="mt-2 font-display text-3xl font-800 uppercase sm:text-4xl">
+              Nuevo <span className="text-gold">Jeep Avenger</span> híbrido
+            </h2>
+            <p className="mt-4 max-w-md text-white/70">
+              Reservá el tuyo con una seña. Consultanos por disponibilidad, colores y el plan de
+              financiación que mejor se adapte a vos.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <a
+                href={waLink('Hola JP Automóviles, quiero información sobre la preventa del Jeep Avenger híbrido.')}
+                target="_blank" rel="noopener" className="btn-primary"
+              >
+                <IconWhatsApp className="h-4 w-4" /> Quiero más info
+              </a>
+              <Link href="/catalogo" className="btn-outline-light">Ver stock</Link>
+            </div>
+          </Reveal>
+
+          <Reveal delay={80} className="overflow-hidden rounded-lg border border-white/10 shadow-lift">
+            <video
+              className="aspect-video w-full bg-black"
+              controls
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              poster="https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?auto=format&fit=crop&w=1200&q=60"
+            >
+              <source src="/video-avenger.mp4" type="video/mp4" />
+            </video>
           </Reveal>
         </div>
       </section>
@@ -166,7 +205,7 @@ export default async function HomePage() {
             <ul className="mt-6 space-y-3 text-sm text-steel-800">
               {['Entrega desde 0% según el caso', 'Planes de 12 a 60 meses', 'Aprobación ágil y personalizada'].map((t) => (
                 <li key={t} className="flex items-center gap-2.5">
-                  <span className="grid h-6 w-6 place-items-center rounded-full bg-red/10 text-red">
+                  <span className="grid h-6 w-6 place-items-center rounded-full bg-gold/10 text-gold">
                     <IconCheck className="h-4 w-4" />
                   </span>
                   {t}
@@ -184,7 +223,7 @@ export default async function HomePage() {
       <section id="contacto" className="bg-ink text-white">
         <div className="wrap py-16 sm:py-20">
           <Reveal className="max-w-2xl">
-            <span className="eyebrow rule-eyebrow text-red">Contacto</span>
+            <span className="eyebrow rule-eyebrow text-gold">Contacto</span>
             <h2 className="mt-2 font-display text-3xl font-800 uppercase sm:text-4xl">Vení a conocernos</h2>
             <p className="mt-4 text-white/70">
               Te esperamos en {site.address}, {site.city}. Escribinos por WhatsApp y coordinamos una
@@ -227,7 +266,7 @@ function InfoItem({
 }) {
   const body = (
     <div className="flex items-start gap-3">
-      <span className="grid h-10 w-10 shrink-0 place-items-center rounded-md bg-ink/[.05] text-red">
+      <span className="grid h-10 w-10 shrink-0 place-items-center rounded-md bg-ink/[.05] text-gold">
         <Icon className="h-5 w-5" />
       </span>
       <div>

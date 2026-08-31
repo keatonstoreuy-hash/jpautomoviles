@@ -4,7 +4,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { createClient } from '@/lib/supabase/client';
 import { currency, numberFmt } from '@/lib/site';
 import { statusLabels } from '@/lib/labels';
 import type { Vehicle } from '@/lib/types';
@@ -16,10 +15,16 @@ export function VehicleTable({ vehicles, editable }: { vehicles: Vehicle[]; edit
   const remove = async (v: Vehicle) => {
     if (!confirm(`¿Eliminar ${v.brand} ${v.model} ${v.year}? Esta acción no se puede deshacer.`)) return;
     setBusy(v.id);
-    const { error } = await createClient().from('vehicles').delete().eq('id', v.id);
-    setBusy(null);
-    if (error) { alert('No se pudo eliminar: ' + error.message); return; }
-    router.refresh();
+    try {
+      const res = await fetch(`/api/admin/vehicles?id=${encodeURIComponent(v.id)}`, { method: 'DELETE' });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error || 'No se pudo eliminar');
+      router.refresh();
+    } catch (e: any) {
+      alert('No se pudo eliminar: ' + (e.message ?? e));
+    } finally {
+      setBusy(null);
+    }
   };
 
   return (
@@ -56,7 +61,7 @@ export function VehicleTable({ vehicles, editable }: { vehicles: Vehicle[]; edit
                 <td className="px-4 py-3">
                   <span className={`inline-flex rounded-full px-2 py-0.5 text-xs font-600 ${
                     v.status === 'disponible' ? 'bg-emerald-100 text-emerald-700'
-                    : v.status === 'reservado' ? 'bg-red/20 text-red-deep'
+                    : v.status === 'reservado' ? 'bg-gold/20 text-gold-deep'
                     : 'bg-steel-200 text-steel-700'
                   }`}>
                     {statusLabels[v.status]}
@@ -67,7 +72,7 @@ export function VehicleTable({ vehicles, editable }: { vehicles: Vehicle[]; edit
                     {editable ? (
                       <>
                         <Link href={`/admin/${v.id}`} className="rounded-md border border-ink/10 px-3 py-1.5 text-xs font-600 hover:border-ink/30">Editar</Link>
-                        <button onClick={() => remove(v)} className="rounded-md border border-red-200 px-3 py-1.5 text-xs font-600 text-red-600 hover:bg-red-50">Eliminar</button>
+                        <button onClick={() => remove(v)} className="rounded-md border border-[#f3c0c0] px-3 py-1.5 text-xs font-600 text-[#b3161f] hover:bg-[#fdecec]">Eliminar</button>
                       </>
                     ) : (
                       <span className="text-xs text-steel-400">Solo lectura (demo)</span>
