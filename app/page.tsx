@@ -4,7 +4,6 @@ import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { HeroSearch } from '@/components/HeroSearch';
 import { InventoryTabs } from '@/components/InventoryTabs';
-import { BrandsStrip } from '@/components/BrandsStrip';
 import { FinanceCalculator } from '@/components/FinanceCalculator';
 import { ContactForm } from '@/components/ContactForm';
 import { MapEmbed } from '@/components/MapEmbed';
@@ -40,7 +39,7 @@ export default async function HomePage() {
           <video
             className="h-full w-full object-cover opacity-40"
             autoPlay muted loop playsInline
-            poster="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1900&q=60"
+            poster="/hero-poster.jpg"
           >
             <source src="/hero.mp4" type="video/mp4" />
           </video>
@@ -76,7 +75,7 @@ export default async function HomePage() {
         <div className="wrap grid items-center gap-8 py-12 lg:grid-cols-[1fr_1fr]">
           <Reveal className="relative aspect-[16/10] overflow-hidden rounded-lg">
             <Image
-              src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=60"
+              src="/video-avenger-poster.jpg"
               alt="Vendé tu auto en JP Automóviles" fill className="object-cover" />
           </Reveal>
           <Reveal delay={80}>
@@ -136,7 +135,8 @@ export default async function HomePage() {
             <div className="overflow-hidden rounded-xl2 border border-ink/10 bg-black shadow-lift">
               <video
                 className="aspect-[9/16] w-full object-cover"
-                controls muted loop playsInline preload="metadata"
+                controls playsInline preload="metadata"
+                poster="/video-avenger-poster.jpg"
               >
                 <source src="/video-avenger.mp4" type="video/mp4" />
               </video>
@@ -144,8 +144,6 @@ export default async function HomePage() {
           </Reveal>
         </div>
       </section>
-
-      <BrandsStrip />
 
       {/* RAZONES */}
       <section id="nosotros" className="bg-ink text-white">
@@ -171,27 +169,29 @@ export default async function HomePage() {
           </Reveal>
           <Reveal delay={80} className="relative aspect-[4/3] overflow-hidden rounded-lg">
             <Image
-              src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=1200&q=60"
-              alt="Atención en JP Automóviles" fill className="object-cover" />
+              src="/hero-poster.jpg"
+              alt="Vehículos de JP Automóviles" fill className="object-cover" />
           </Reveal>
         </div>
       </section>
 
       {/* CONOCÉ NUESTRO LOCAL */}
-      <section className="relative isolate overflow-hidden">
-        <div className="absolute inset-0 -z-10">
-          <Image
-            src="https://images.unsplash.com/photo-1567449303078-57ad995bd17f?auto=format&fit=crop&w=1900&q=60"
-            alt="Local de JP Automóviles en Paysandú" fill className="object-cover" />
-          <div className="absolute inset-0 bg-ink/70" />
-        </div>
-        <div className="wrap py-20 text-white sm:py-24">
-          <h2 className="font-display text-2xl font-800 uppercase sm:text-3xl">Conocé nuestro local</h2>
-          <p className="mt-3 max-w-md text-white/75">
-            Te esperamos en {site.address}, {site.city}. Vení a ver los vehículos en persona y
-            asesorate sin compromiso.
-          </p>
-          <Link href="/#contacto" className="btn-gold mt-6">Cómo llegar</Link>
+      <section className="bg-ink text-white">
+        <div className="wrap grid items-center gap-8 py-14 sm:py-16 lg:grid-cols-[1fr_1.2fr]">
+          <Reveal>
+            <span className="inline-flex items-center gap-2 text-xs font-700 uppercase tracking-[0.2em] text-gold">
+              <span className="h-px w-7 bg-gold" /> Nuestro local
+            </span>
+            <h2 className="mt-2 font-display text-2xl font-800 uppercase sm:text-3xl">Conocé nuestro local</h2>
+            <p className="mt-3 max-w-md text-white/75">
+              Te esperamos en {site.address}, {site.city}. Vení a ver los vehículos en persona y
+              asesorate sin compromiso.
+            </p>
+            <Link href="/#contacto" className="btn-gold mt-6">Cómo llegar</Link>
+          </Reveal>
+          <Reveal delay={80} className="min-h-[280px] overflow-hidden rounded-lg border border-white/10">
+            <MapEmbed />
+          </Reveal>
         </div>
       </section>
 
