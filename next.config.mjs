@@ -19,5 +19,3 @@ const nextConfig = {
 };
 
 export default nextConfig;
-
-# deploy: 1788210870
