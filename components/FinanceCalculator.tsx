@@ -51,17 +51,24 @@ export function FinanceCalculator({
       )}
 
       <div className="grid gap-5">
-        <div>
-          <div className="flex items-center justify-between">
-            <label className="label mb-0">Precio del vehículo</label>
-            <span className="font-display text-lg font-600">{money(price)}</span>
+        {compact ? (
+          <div className="flex items-center justify-between rounded-lg bg-paper-muted px-4 py-3">
+            <span className="label mb-0">Precio del vehículo</span>
+            <span className="font-display text-lg font-800">{money(price)}</span>
           </div>
-          <input
-            type="range" min={3000} max={80000} step={500}
-            value={price} onChange={(e) => setPrice(+e.target.value)}
-            className="mt-2 w-full accent-gold"
-          />
-        </div>
+        ) : (
+          <div>
+            <div className="flex items-center justify-between">
+              <label className="label mb-0">Precio del vehículo</label>
+              <span className="font-display text-lg font-600">{money(price)}</span>
+            </div>
+            <input
+              type="range" min={3000} max={80000} step={500}
+              value={price} onChange={(e) => setPrice(+e.target.value)}
+              className="mt-2 w-full accent-gold"
+            />
+          </div>
+        )}
 
         <div>
           <div className="flex items-center justify-between">

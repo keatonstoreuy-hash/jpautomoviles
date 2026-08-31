@@ -42,8 +42,8 @@ export function Navbar() {
           </ul>
 
           <div className="hidden items-center gap-2 lg:flex">
-            <Link href="/permuta" className="btn-gold !px-5 !py-2.5 text-xs">
-              Cotizá tu auto
+            <Link href="/catalogo" className="btn-primary !px-5 !py-2.5 text-xs">
+              Ver stock
             </Link>
           </div>
 

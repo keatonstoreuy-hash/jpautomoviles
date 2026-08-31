@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { InventoryTabs } from '@/components/InventoryTabs';
+import { Testimonials } from '@/components/Testimonials';
 import { FinanceCalculator } from '@/components/FinanceCalculator';
 import { ContactForm } from '@/components/ContactForm';
 import { MapEmbed } from '@/components/MapEmbed';
@@ -18,12 +19,6 @@ const reasons = [
   { t: 'Nos encargamos de todo', d: 'Trámites, transferencia y papeles: te lo dejamos listo.' },
 ];
 
-const testimonials = [
-  { name: 'Marcelo D.', date: 'Compra de usado', text: 'Muy buena atención, me explicaron todo con paciencia y el auto estaba impecable. Recomiendo.' },
-  { name: 'Carolina S.', date: 'Permuta', text: 'Entregué mi auto en parte de pago sin vueltas. Precio justo y trato de primera.' },
-  { name: 'Rodrigo P.', date: 'Financiación', text: 'Me armaron un plan de cuotas que me cerraba. Salí manejando mi camioneta en pocos días.' },
-];
-
 export default async function HomePage() {
   const all = await getVehicles();
   const stock = all.filter((v) => v.status !== 'vendido');
@@ -36,9 +31,9 @@ export default async function HomePage() {
       <section className="relative isolate overflow-hidden bg-ink text-white">
         <div className="absolute inset-0 -z-10">
           <Image
-            src="https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1900&q=70"
-            alt="Vehículos en JP Automóviles" fill priority className="object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/85 to-ink/35" />
+            src="/hero-home.jpg"
+            alt="Familia disfrutando su vehículo de JP Automóviles" fill priority className="object-cover object-right" />
+          <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/85 to-ink/20" />
         </div>
 
         <div className="wrap flex min-h-[440px] flex-col justify-center py-16 sm:min-h-[500px]">
@@ -140,46 +135,42 @@ export default async function HomePage() {
 
       {/* RAZONES */}
       <section id="nosotros" className="bg-ink text-white">
-        <div className="wrap py-16 sm:py-20">
-          <Reveal className="max-w-2xl">
-            <span className="inline-flex items-center gap-2 text-xs font-700 uppercase tracking-[0.2em] text-gold">
-              <span className="h-px w-7 bg-gold" /> Por qué elegirnos
-            </span>
-            <h2 className="mt-2 font-display text-2xl font-800 uppercase sm:text-3xl">
-              4 razones para elegir JP Automóviles
-            </h2>
+        <div className="wrap grid gap-10 py-16 sm:py-20 lg:grid-cols-2 lg:items-center">
+          <Reveal delay={80} className="relative order-2 aspect-[16/10] overflow-hidden rounded-lg lg:order-1">
+            <Image src="/local-jp.jpg" alt="Local de JP Automóviles en Paysandú" fill className="object-cover" />
           </Reveal>
-          <div className="mt-9 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {reasons.map((r, i) => (
-              <Reveal key={r.t} delay={i * 70} className="border-t-2 border-gold pt-4">
-                <span className="font-display text-3xl font-900 text-gold">{String(i + 1).padStart(2, '0')}</span>
-                <h3 className="mt-2 font-display text-base font-800 uppercase">{r.t}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-white/65">{r.d}</p>
-              </Reveal>
-            ))}
+          <div className="order-1 lg:order-2">
+            <Reveal>
+              <span className="inline-flex items-center gap-2 text-xs font-700 uppercase tracking-[0.2em] text-gold">
+                <span className="h-px w-7 bg-gold" /> Por qué elegirnos
+              </span>
+              <h2 className="mt-2 font-display text-2xl font-800 uppercase sm:text-3xl">
+                4 razones para elegir JP Automóviles
+              </h2>
+            </Reveal>
+            <div className="mt-7 grid gap-6 sm:grid-cols-2">
+              {reasons.map((r, i) => (
+                <Reveal key={r.t} delay={i * 70} className="border-t-2 border-gold pt-4">
+                  <span className="font-display text-2xl font-900 text-gold">{String(i + 1).padStart(2, '0')}</span>
+                  <h3 className="mt-1 font-display text-base font-800 uppercase">{r.t}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-white/65">{r.d}</p>
+                </Reveal>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       {/* TESTIMONIOS */}
-      <section className="wrap py-16 sm:py-20">
-        <Reveal>
-          <span className="eyebrow">Testimonios</span>
-          <h2 className="mt-1 font-display text-2xl font-800 uppercase sm:text-3xl">Qué dicen nuestros clientes</h2>
-        </Reveal>
-        <div className="mt-8 grid gap-6 md:grid-cols-3">
-          {testimonials.map((t, i) => (
-            <Reveal key={t.name} delay={i * 70} className="card p-6">
-              <div className="mb-3 flex gap-0.5 text-gold">
-                {Array.from({ length: 5 }).map((_, k) => <span key={k}>★</span>)}
-              </div>
-              <p className="text-sm leading-relaxed text-steel-800">“{t.text}”</p>
-              <div className="mt-4 border-t border-ink/[.06] pt-3">
-                <p className="font-700 text-ink">{t.name}</p>
-                <p className="text-xs text-steel-400">{t.date}</p>
-              </div>
-            </Reveal>
-          ))}
+      <section className="py-16 sm:py-20">
+        <div className="wrap">
+          <Reveal>
+            <span className="eyebrow">Testimonios</span>
+            <h2 className="mt-1 font-display text-2xl font-800 uppercase sm:text-3xl">Qué dicen nuestros clientes</h2>
+          </Reveal>
+        </div>
+        <div className="mt-8">
+          <Testimonials />
         </div>
       </section>
 
