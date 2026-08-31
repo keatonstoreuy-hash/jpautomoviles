@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
-import { WhatsAppFloat } from '@/components/WhatsAppFloat';
 import { Gallery } from '@/components/Gallery';
 import { StatusBadge } from '@/components/StatusBadge';
 import { VehicleCard } from '@/components/VehicleCard';
@@ -190,7 +189,6 @@ export default async function VehiclePage({ params }: { params: { slug: string }
       </div>
 
       <Footer />
-      <WhatsAppFloat message={waMsg} />
     </>
   );
 }

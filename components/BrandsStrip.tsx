@@ -16,7 +16,7 @@ export function BrandsStrip() {
     <section className="border-y border-ink/[.06] bg-paper-muted">
       <div className="wrap py-10">
         <p className="text-center text-xs font-800 uppercase tracking-[0.3em] text-steel-400">
-          Marcas que trabajamos
+          Compra y venta de todas las marcas
         </p>
         <div className="marquee-mask mt-6 overflow-hidden">
           <div className="marquee-track items-center gap-12">

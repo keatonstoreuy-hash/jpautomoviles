@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
-import { WhatsAppFloat } from '@/components/WhatsAppFloat';
 import { FinanceCalculator } from '@/components/FinanceCalculator';
 import { IconCheck, IconSpark, IconSwap } from '@/components/icons';
 
@@ -74,7 +73,6 @@ export default function FinanciacionPage() {
       </div>
 
       <Footer />
-      <WhatsAppFloat message="Hola, quería consultar por financiación." />
     </>
   );
 }

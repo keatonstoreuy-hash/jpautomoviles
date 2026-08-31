@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { Suspense } from 'react';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
-import { WhatsAppFloat } from '@/components/WhatsAppFloat';
 import { CatalogFilters } from '@/components/CatalogFilters';
 import { SortSelect } from '@/components/SortSelect';
 import { VehicleCard } from '@/components/VehicleCard';
@@ -99,7 +98,6 @@ export default async function CatalogoPage({ searchParams }: { searchParams: SP 
       </div>
 
       <Footer />
-      <WhatsAppFloat />
     </>
   );
 }

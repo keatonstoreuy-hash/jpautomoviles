@@ -26,15 +26,15 @@ const config: Config = {
           500: '#9aa0a8',
           700: '#5b6169',
         },
-        // Amarillo/dorado de marca JP (dealership). El texto sobre amarillo va en negro.
+        // Amarillo suave de marca JP (acento). Predominan negro/gris/blanco.
         gold: {
-          DEFAULT: '#f5b301',
-          soft: '#ffca2c',
-          deep: '#c98a00',
+          DEFAULT: '#f6cf5b',
+          soft: '#ffe08a',
+          deep: '#c99b2e',
         },
         // Aliases por compatibilidad.
-        brass: { DEFAULT: '#f5b301', soft: '#ffca2c', deep: '#c98a00' },
-        red: { DEFAULT: '#f5b301', soft: '#ffca2c', deep: '#c98a00' },
+        brass: { DEFAULT: '#f6cf5b', soft: '#ffe08a', deep: '#c99b2e' },
+        red: { DEFAULT: '#f6cf5b', soft: '#ffe08a', deep: '#c99b2e' },
         steel: {
           50: '#f5f6f7',
           100: '#e9ebee',

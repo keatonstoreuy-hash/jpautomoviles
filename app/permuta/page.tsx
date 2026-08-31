@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
-import { WhatsAppFloat } from '@/components/WhatsAppFloat';
 import { PermutaForm } from '@/components/PermutaForm';
 import { IconCheck } from '@/components/icons';
 
@@ -47,7 +46,6 @@ export default function PermutaPage() {
         <PermutaForm />
       </div>
       <Footer />
-      <WhatsAppFloat message="Hola, quería tasar mi vehículo para permuta." />
     </>
   );
 }

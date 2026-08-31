@@ -42,14 +42,9 @@ export function Navbar() {
           </ul>
 
           <div className="hidden items-center gap-2 lg:flex">
-            <a
-              href={waLink('Hola JP Automóviles, quería hacer una consulta.')}
-              target="_blank"
-              rel="noopener"
-              className="btn-wa !px-5 !py-2.5 text-xs"
-            >
-              <IconWhatsApp className="h-4 w-4" /> WhatsApp
-            </a>
+            <Link href="/permuta" className="btn-gold !px-5 !py-2.5 text-xs">
+              Cotizá tu auto
+            </Link>
           </div>
 
           <button
